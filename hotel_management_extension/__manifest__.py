@@ -1,6 +1,6 @@
 {
     'name': 'Hotel Room Extension',
-    'version': '1.0',
+    'version': '2.0',
     'author': 'Your Name',
     'category': 'Hotel Management',
     'summary': 'Add room details and booking history',

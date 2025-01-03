@@ -5,7 +5,7 @@
             <field name="model">hotel.management</field>
             <field name="inherit_id" ref="hotel_management.view_hotel_management_form"/>
             <field name="arch" type="xml">
-                <notebook>
+                <xpath expr="//notebook" position="inside">
                     <page string="Booking History">
                         <field name="booking_history_ids">
                             <list>
@@ -16,7 +16,7 @@
                             </list>
                         </field>
                     </page>
-                </notebook>
+                </xpath>
             </field>
         </record>
     </data>

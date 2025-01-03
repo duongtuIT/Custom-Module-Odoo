@@ -11,8 +11,6 @@ class BookingHistory(models.Model):
     check_in_date = fields.Date(string="Check-in Date", required=True)
     check_out_date = fields.Date(string="Check-out Date", required=True)
 
-
-
 class HotelManagement(models.Model):
     _inherit = 'hotel.management'
     # Quan hệ với bảng lịch sử đặt phòng
