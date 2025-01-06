@@ -9,3 +9,4 @@ class RoomFeature(models.Model):
 
     # Quan hệ với phòng
     room_ids = fields.Many2many('hotel.room', string="Rooms")
+

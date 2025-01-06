@@ -13,7 +13,9 @@
     'category': 'Management',
     'depends': ['base'],  
     'data': [
-        'security/ir.model.access.csv',  # Quyền truy cập
+        'security/ir.model.access.csv',
+        'security/security.xml',
+        'security/reacord_rule.xml',
         'views/hotel_view.xml',  # Views cho khách sạn
         'views/room_view.xml',  # Views cho phòng
         'views/room_feature.xml',  # Views cho đặc điểm phòng

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Quy tắc cho nhân viên -->
+        <record id="rule_booking_order_staff" model="ir.rule">
+            <field name="name">Booking Order - Staff</field>
+            <field name="model_id" ref="model_booking_order"/>
+            <field name="groups" eval="[(4, ref('group_hotel_staff'))]"/>
+            <field name="domain_force">[('create_uid', '=', user.id)]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <!-- Quy tắc cho quản lý -->
+        <record id="rule_booking_order_manager" model="ir.rule">
+            <field name="name">Booking Order - Manager</field>
+            <field name="model_id" ref="model_booking_order"/>
+            <field name="groups" eval="[(4, ref('group_hotel_manager'))]"/>
+            <field name="domain_force">[]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+    </data>
+</odoo>

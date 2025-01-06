@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="view_hotel_management_form" model="ir.ui.view">
-            <field name="name">hotel.management.form</field>
-            <field name="model">hotel.management</field>
-            <field name="arch" type="xml">
-                <form string="Hotel Management">
-                    <sheet>
-                        <group>
-                            <field name="hotel_code" invisible="1"/>
-                            <field name="name"/>
-                            <field name="address"/>
-                            <field name="floor_count"/>
-                            
-                        </group>
-                        <notebook>
-                            <page string="Rooms">
-                                <field name="room_ids">
-                                    <list editable="bottom">
-                                        <field name="room_code"/>
-                                        <field name="bed_type"/>
-                                        <field name="price"/>
-                                        <field name="state"/>
-                                    </list>
-                                </field>
-                            </page>
-                        </notebook>
-                        
-                    </sheet>
-                </form>
-            </field>
-        </record>
+            <record id="view_hotel_management_form" model="ir.ui.view">
+                <field name="name">hotel.management.form</field>
+                <field name="model">hotel.management</field>
+                <field name="arch" type="xml">
+                    <form string="Hotel Management">
+                        <sheet>
+                            <group>
+                                <field name="hotel_code" invisible="1"/>
+                                <field name="name"/>
+                                <field name="address"/>
+                                <field name="floor_count"/>
+
+                            </group>
+                            <notebook>
+                                <page string="Rooms">
+                                    <field name="room_ids">
+                                        <list editable="bottom">
+                                            <field name="room_code"/>
+                                            <field name="bed_type"/>
+                                            <field name="price"/>
+                                            <field name="state"/>
+                                        </list>
+                                    </field>
+                                </page>
+                            </notebook>
+
+                        </sheet>
+                    </form>
+                </field>
+            </record>
 
         <record id="view_hotel_management_list" model="ir.ui.view">
             <field name="name">hotel.management.list</field>

@@ -59,4 +59,4 @@
         <menuitem id="menu_rooms" name="Rooms" parent="menu_hotel_management" action="action_hotel_room" sequence="20"/>
     </data>
 </odoo>
-s
+
