@@ -5,7 +5,7 @@ class HotelRoom(models.Model):
     _description = 'Hotel Room'
 
     # Fields
-    hotel_id = fields.Many2one('hotel.management', string="Hotel", required=True)
+    hotel_id = fields.Many2one('hotel.management', string="Hotel", ondelete="cascade", required=True)
     address = fields.Char(string="Hotel Address", related="hotel_id.address", store=True)
     room_code = fields.Char(string="Room Code", required=True)
     bed_type = fields.Selection([
@@ -26,4 +26,3 @@ class HotelRoom(models.Model):
     _sql_constraints = [
         ('room_code_unique_per_hotel', 'unique(hotel_id, room_code)', 'Room code must be unique within a hotel.')
     ]
-    
