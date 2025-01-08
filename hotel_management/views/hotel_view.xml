@@ -8,11 +8,11 @@
                     <form string="Hotel Management">
                         <sheet>
                             <group>
-                                <field name="hotel_code" invisible="1"/>
+                                <field name="hotel_ids" invisible="1"/>
                                 <field name="name"/>
                                 <field name="address"/>
                                 <field name="floor_count"/>
-
+                                <field name="manager_id"/>
                             </group>
                             <notebook>
                                 <page string="Rooms">
@@ -39,6 +39,7 @@
                 <list>
                     <!-- <field name="hotel_code"/> -->
                     <field name="name"/>
+                    <field name="manager_id"/>
                     <field name="address"/>
                     <field name="floor_count"/>
                     <field name="room_count"/>

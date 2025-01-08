@@ -17,13 +17,17 @@ class BookingOrder(models.Model):
         ('double', 'Double Bed')
     ], string="Room Type", required=True)
     room_id = fields.Many2one(
-        'hotel.room', string="Room ID", required=True, domain="[('hotel_id', '=', hotel_id), ('bed_type', '=', room_type), ('state', '=', 'available')]"
+        'hotel.room',
+        string="Room ID",
+        required=True,
+        domain="[('hotel_id', '=', hotel_id),('bed_type', '=', room_type),('state', '=', 'confirmed')]"
     )
     room_name = fields.Char(string="Room Name", related="room_id.room_code", store=True)
     state = fields.Selection([
         ('new', 'New'),
         ('confirmed', 'Confirmed')
     ], string="Booking Status", default='new', required=True)
+
     @api.model
     def create(self, vals):
         # Kiểm tra và tự động tạo hotel_code nếu không có
@@ -35,33 +39,43 @@ class BookingOrder(models.Model):
             else:
                 new_code = '1'  # Nếu không có khách sạn nào, bắt đầu từ 1
             vals['booking_code'] = new_code
+        # Cập nhật trạng thái phòng thành 'booked' khi tạo đơn đặt phòng
+        room = self.env['hotel.room'].browse(vals['room_id'])
+        if room:
+            overlap_booking = self.env['booking.order'].search([
+                ('room_id', '=', vals['room_id']),
+                ('check_in_date', '<=', vals['check_out_date']),
+                ('check_out_date', '>=', vals['check_in_date']),
+              ])
+            if overlap_booking:
+                raise models.ValidationError("The room is already booked for the selected dates.")
 
+        room.state = 'booked'  # Thay đổi trạng thái phòng thành 'booked'
         return super(BookingOrder, self).create(vals)
+
     # Constraints
     @api.constrains('check_in_date', 'check_out_date')
     def _check_dates(self):
         for record in self:
             if record.check_in_date > record.check_out_date:
                 raise models.ValidationError("Check-in date cannot be later than check-out date.")
+
     @api.depends('room_id')
     def _compute_room_code(self):
         for record in self:
             if record.room_id:
-                record.room_code = record.room_id.room_code 
-    # Action button
-    def action_confirm_booking(self):
-        for record in self:
-            record.state = 'confirmed'
-            record.room_id.state = 'booked'
-        return {
-        'type': 'ir.actions.act_window',
-        'name': 'Booking Orders',
-        'res_model': 'booking.order',
-        'view_mode': 'list',
-        'target': 'main',}
-    
+                record.room_code = record.room_id.room_code
+
     def unlink(self):
         for record in self:
             if record.room_id:
-                record.room_id.state = 'available'
+                # Kiểm tra xem còn đơn đặt phòng nào khác liên quan đến phòng này không
+                other_bookings = self.search([
+                    ('room_id', '=', record.room_id.id),
+                    ('id', '!=', record.id)  # Loại bỏ bản ghi hiện tại
+                ])
+                # Nếu không còn đơn đặt phòng nào khác, đặt trạng thái phòng là 'available'
+                if not other_bookings:
+                    record.room_id.state = 'available'
         return super(BookingOrder, self).unlink()
+

@@ -17,14 +17,11 @@
                         <group>
                             <field name="hotel_id"/>
                             <field name="room_type"/>
-                            <field name="room_id" domain="[('hotel_id', '=', hotel_id), ('bed_type', '=', room_type), ('state', '=', 'available')]" widget="id"/>
+                            <field name="room_id" domain="[('hotel_id', '=', hotel_id), ('bed_type', '=', room_type)]"/>
                             <field name="room_name"/>
                             <field name="state" />
                         </group>
-                        <group>
-                            <button string="Confirm" type="object" name="action_confirm_booking" class="btn-primary"/>
-                            
-                        </group>
+
                     </sheet>
                 </form>
             </field>

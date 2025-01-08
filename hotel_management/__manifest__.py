@@ -11,11 +11,13 @@
     'author': 'Duong Tu',
     'website': 'https://yourwebsite.com',
     'category': 'Management',
-    'depends': ['base'],  
+    'depends': ['base','hr'],
     'data': [
-        'security/ir.model.access.csv',
         'security/security.xml',
-        'security/reacord_rule.xml',
+        'security/ir.model.access.csv',
+        'security/record_rule_hotel.xml',
+        'security/record_rule_room.xml',
+        'security/record_rule_booking.xml',
         'views/hotel_view.xml',  # Views cho khách sạn
         'views/room_view.xml',  # Views cho phòng
         'views/room_feature.xml',  # Views cho đặc điểm phòng
@@ -23,5 +25,6 @@
     ],
     'installable': True,
     'application': True,
-    'license': 'LGPL-3',  
+    'license': 'LGPL-3',
+    'icon': '/hotel_management/static/description/icon_hotel.png',
 }

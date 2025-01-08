@@ -4,8 +4,9 @@ class Hotel(models.Model):
     _name = "hotel.management"
     _description = "Hotel Management"
 
+
      # Fields
-    hotel_code = fields.Char(string="Hotel ID", unique=True, index=True)  # Mã khách sạn (duy nhất)
+    hotel_ids = fields.Char(string="Hotel ID", unique=True, index=True)  # Mã khách sạn (duy nhất)
     name = fields.Char(string="Hotel Name", required=True)  # Tên khách sạn
     address = fields.Char(string="Hotel Address", required=True)  # Địa chỉ khách sạn
     floor_count = fields.Integer(string="Number of Floors", required=True)  # Số tầng
@@ -13,31 +14,35 @@ class Hotel(models.Model):
         string="Number of Rooms",
         compute="_compute_room_count",
         store=True,
-    )  # Số phòng (tự động đếm)
+    )
+    manager_id = fields.Many2one('hr.employee', string="Manager", domain="[('job_id', '=', 'Hotel_Manager')]")
+    employee_ids = fields.One2many('hr.employee', 'parent_id', string="Employees")  # Các nhân viên dưới quyền
 
+    # Liên kết với bảng `res.users`
+    user_id = fields.Many2one('res.users', string="User", related="manager_id.user_id", store=True)
     # Quan hệ với bảng room
     room_ids = fields.One2many(
         'hotel.room', 'hotel_id', string="Rooms"
     )  # Một khách sạn có nhiều phòng
-   
+
     # Constraints
     _sql_constraints = [
-    ('hotel_code_unique', 'unique(hotel_code)', 'Hotel code must be unique.')]
-    # Tự động tạo hotel_code khi tạo mới bản ghi
+    ('hotel_ids_unique', 'unique(hotel_ids)', 'Hotel id must be unique.')]
+
     @api.model
     def create(self, vals):
-        # Kiểm tra và tự động tạo hotel_code nếu không có
-        if 'hotel_code' not in vals:
-            last_hotel = self.search([], order='hotel_code desc', limit=1)
+        # Kiểm tra và tự động tạo hotel_ids nếu không có
+        if 'hotel_ids' not in vals:
+            last_hotel = self.search([], order='hotel_ids desc', limit=1)
             if last_hotel:
-                last_code = int(last_hotel.hotel_code)
+                last_code = int(last_hotel.hotel_ids)
                 new_code = str(last_code + 1)
             else:
                 new_code = '1'  # Nếu không có khách sạn nào, bắt đầu từ 1
-            vals['hotel_code'] = new_code
+            vals['hotel_ids'] = new_code
 
         return super(Hotel, self).create(vals)
-    
+
     @api.depends('room_ids')
     def _compute_room_count(self):
         for hotel in self:
@@ -48,4 +53,4 @@ class Hotel(models.Model):
         if self.floor_count < 1:
             raise models.ValidationError("Number of floors must be greater than 0.")
 
-    
+

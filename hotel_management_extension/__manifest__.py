@@ -2,7 +2,7 @@
     'name': 'Hotel Room Extension',
     'version': '2.0',
     'author': 'Your Name',
-    'category': 'Hotel Management',
+    'category': 'Management',
     'summary': 'Add room details and booking history',
     'depends': ['base', 'hotel_management'], 
     'data': [
@@ -13,4 +13,5 @@
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
+    'icon': '/hotel_management_extension/static/description/icons.png',
 }
