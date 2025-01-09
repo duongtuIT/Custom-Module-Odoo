@@ -4,7 +4,7 @@
     'author': 'Your Name',
     'category': 'Management',
     'summary': 'Add room details and booking history',
-    'depends': ['base', 'hotel_management'], 
+    'depends': ['base', 'hotel_management','hr'],
     'data': [
         'security/ir.model.access.csv',
         'views/hotel_management_extension_view.xml',

@@ -18,6 +18,16 @@
                         </field>
                     </page>
                 </xpath>
+                 <xpath expr="//notebook" position="inside">
+                    <page string="Employees">
+                        <field name="employee_ids">
+                            <list>
+                                <field name="name" string="Employee Name"/>
+                                <field name="job_id" string="Job Title"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
                 <xpath expr="//field[@name='price']" position="after">
                     <field name="room_size"/>
                     <field name="max_people"/>
