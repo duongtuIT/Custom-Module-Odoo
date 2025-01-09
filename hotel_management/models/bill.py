@@ -20,8 +20,9 @@ class BookingOrder(models.Model):
         'hotel.room',
         string="Room ID",
         required=True,
-        domain="[('hotel_id', '=', hotel_id),('bed_type', '=', room_type),('state', '=', 'confirmed')]"
+        domain="[('hotel_id', '=', hotel_id),('bed_type', '=', room_type)]"
     )
+
     room_name = fields.Char(string="Room Name", related="room_id.room_code", store=True)
     state = fields.Selection([
         ('new', 'New'),

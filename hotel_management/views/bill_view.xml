@@ -17,7 +17,7 @@
                         <group>
                             <field name="hotel_id"/>
                             <field name="room_type"/>
-                            <field name="room_id" domain="[('hotel_id', '=', hotel_id), ('bed_type', '=', room_type)]"/>
+                            <field name="room_id" domain="[('hotel_id', '=', hotel_id), ('bed_type', '=', room_type)]" options="{'no_open': True}"/>
                             <field name="room_name"/>
                             <field name="state" />
                         </group>

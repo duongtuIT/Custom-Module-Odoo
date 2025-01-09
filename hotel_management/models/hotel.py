@@ -16,10 +16,7 @@ class Hotel(models.Model):
         store=True,
     )
     manager_id = fields.Many2one('hr.employee', string="Manager", domain="[('job_id', '=', 'Hotel_Manager')]")
-    employee_ids = fields.One2many('hr.employee', 'parent_id', string="Employees")  # Các nhân viên dưới quyền
 
-    # Liên kết với bảng `res.users`
-    user_id = fields.Many2one('res.users', string="User", related="manager_id.user_id", store=True)
     # Quan hệ với bảng room
     room_ids = fields.One2many(
         'hotel.room', 'hotel_id', string="Rooms"
